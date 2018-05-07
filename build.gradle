@@ -1,0 +1,34 @@
+plugins {
+    id 'java'
+}
+
+dependencies {
+    compile 'com.google.guava:guava:23.0'
+
+    testCompile 'junit:junit:4.12'
+}
+
+repositories {
+    jcenter()
+}
+
+sourceSets {
+    script {
+        java.srcDir file('src/script/java')
+        resources.srcDir file('src/script/resources')
+    }
+}
+
+configurations {
+    script
+}
+
+dependencies {
+    scriptCompile sourceSets.main.output
+}
+
+task sample(type: JavaExec) {
+    classpath = sourceSets.script.runtimeClasspath
+
+    main = 'com.github.wreulicke.script.Main'
+}
